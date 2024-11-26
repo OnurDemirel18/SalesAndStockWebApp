@@ -1,4 +1,0 @@
-lesson 6 11.10
-
-
-bu zamana kadar entityleri yazdık dal ları yazdık interfaceleri yazdık business katmanında kaldık.
