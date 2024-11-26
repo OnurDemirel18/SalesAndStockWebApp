@@ -1,1 +1,1 @@
-# Stok_Satış_blazor
+# SALES AND STOCK APP
