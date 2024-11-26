@@ -1,0 +1,20 @@
+Musteri = Customer
+
+AdiSoyadi = NameSurname
+
+Telefon = PhoneNumber
+
+Adres = Adress
+
+SehirId = CityId
+
+
+Şehirler = Cities
+
+Ürünler = Products
+
+Kategori = Category
+
+Yetkiler = Ability
+
+Personel = Employee
