@@ -10,6 +10,7 @@ using NHibernate.Cfg;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 
 
@@ -17,11 +18,17 @@ namespace DataAccess.Helpers
 {
     public class PostgresHelper : NHibernateHelper
     {
+        private IConfiguration Configuration;
+        public PostgresHelper(IConfiguration configuration)
+        {
+            Configuration = configuration;
+            
+        }
         protected override ISessionFactory InitializeFactory()
         {
             var build = Fluently
                 .Configure()
-                .Database(PostgreSQLConfiguration.PostgreSQL82)
+                .Database(PostgreSQLConfiguration.PostgreSQL82.ConnectionString(Configuration.GetConnectionString("PostgreSQLConnection")))
                 .Mappings(p => p.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
                 .ExposeConfiguration(TreatConfiguration)
                 .BuildSessionFactory();
