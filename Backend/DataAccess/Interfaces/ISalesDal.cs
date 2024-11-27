@@ -10,5 +10,6 @@ namespace DataAccess.Interfaces
 {
     public interface ISalesDal : IRepositoryService<Sales>
     {
+        List<Sales> Paging(int skip,  int take);
     }
 }
