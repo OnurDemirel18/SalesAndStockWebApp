@@ -12,6 +12,8 @@ namespace Base.DB.Helper
     {
         private static ISessionFactory _sessionFactory;
 
+
+
         public virtual ISessionFactory SessionFactory { 
             get { return _sessionFactory ?? (_sessionFactory = InitializeFactory()); } 
             
