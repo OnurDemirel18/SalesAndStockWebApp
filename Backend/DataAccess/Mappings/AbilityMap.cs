@@ -12,7 +12,7 @@ namespace DataAccess.Mappings
     {
         public AbilityMap()
         {
-            Table("Products");
+            Table("Ability");
             Id(p => p.Id).Column("Id").GeneratedBy.Increment();
             Map(p => p.Name).Column("Name");
 

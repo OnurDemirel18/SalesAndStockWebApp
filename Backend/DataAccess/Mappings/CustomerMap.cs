@@ -17,7 +17,7 @@ namespace DataAccess.Mappings
             References(p => p.CityId).Column("CityId").Not.LazyLoad();
             Map(p => p.NameSurname).Column("NameSurname");
             Map(p => p.PhoneNumber).Column("PhoneNumber");
-            Map(p => p.Address).Column("Address").CustomSqlType("text");
+            Map(p => p.Address).Column("Address");
 
         }
     }

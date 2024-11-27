@@ -11,7 +11,7 @@ namespace Entities.Entities
     {
         public virtual int Id { get; set; }
         public virtual Products ProductId { get; set; }
-        public virtual Customer CustomerId { get; set; },
+        public virtual Customer CustomerId { get; set; }
         public virtual Employee EmployeeId { get; set; }
         public virtual DateTime Date {  get; set; }
         public virtual int Piece { get; set; }

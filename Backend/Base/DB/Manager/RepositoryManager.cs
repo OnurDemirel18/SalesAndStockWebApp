@@ -21,25 +21,35 @@ namespace Base.DB.Manager
         public T Add(T entity)
         {
             using (var session = _nHibernateHelper.OpenSession())
-            { session.Save(entity); return entity; }
+            { 
+                session.Save(entity);
+                return entity;
+            }
         }
 
         public void Delete(T entity)
         {
             using (var session = _nHibernateHelper.OpenSession())
-            { session.Delete(entity); session.Flush(); session.Clear(); }
+            {
+                session.Delete(entity);
+                session.Flush();
+                session.Clear();
+            }
         }
 
         public T Get(Expression<Func<T, bool>> filter)
         {
             using (var session = _nHibernateHelper.OpenSession())
-            { return session.Query<T>().SingleOrDefault(filter); }
+            {
+                return session.Query<T>().SingleOrDefault(filter);
+            }
         }
 
         public List<T> GetList(Expression<Func<T, bool>> filter)
         {
             using (var session = _nHibernateHelper.OpenSession())
             {
+             
                 return filter == null ? session.Query<T>().ToList() : session.Query<T>().Where(filter).ToList();
             }
         }
@@ -47,7 +57,12 @@ namespace Base.DB.Manager
         public T Update(T entity)
         {
             using (var session = _nHibernateHelper.OpenSession())
-            { session.Update(entity); session.Flush(); session.Clear(); return entity; }
+            {
+                session.Update(entity);
+                session.Flush();
+                session.Clear();
+                return entity;
+            }
         }
     }
 }

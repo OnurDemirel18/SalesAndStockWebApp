@@ -34,7 +34,13 @@ builder.Services.AddScoped<IAbilityDal,NHAbilityDal>();
 
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
 builder.Services.AddScoped<IUserAbilityService,UserAbilityManager>();
-builder.Services.AddScoped<ICustomerService, CustomerManager>();
+builder.Services.AddScoped<ICustomerService,CustomerManager>();
+builder.Services.AddScoped<IEmployeeService,EmployeeManager>();
+builder.Services.AddScoped<ISalesService,SalesManager>();
+builder.Services.AddScoped<ICitiesService,CitiesManager>();
+builder.Services.AddScoped<IStockService,StockManager>();
+builder.Services.AddScoped<IProductsService,ProductsManager>();
+builder.Services.AddScoped<IAbilityService,AbilityManager>();
 
 
 

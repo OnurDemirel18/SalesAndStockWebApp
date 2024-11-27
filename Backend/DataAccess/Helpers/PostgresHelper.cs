@@ -14,21 +14,22 @@ using Microsoft.Extensions.Configuration;
 
 
 
+
 namespace DataAccess.Helpers
 {
     public class PostgresHelper : NHibernateHelper
     {
-        private IConfiguration Configuration;
+        private IConfiguration _configuration;
         public PostgresHelper(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
             
         }
         protected override ISessionFactory InitializeFactory()
         {
             var build = Fluently
                 .Configure()
-                .Database(PostgreSQLConfiguration.PostgreSQL82.ConnectionString(Configuration.GetConnectionString("PostgreSQLConnection")))
+                .Database(PostgreSQLConfiguration.PostgreSQL82.ConnectionString(_configuration.GetConnectionString("PostgreSQLConnection")))
                 .Mappings(p => p.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
                 .ExposeConfiguration(TreatConfiguration)
                 .BuildSessionFactory();

@@ -15,7 +15,7 @@ namespace DataAccess.Mappings
             Table("Employee");
             Id(p => p.Id).Column("Id").GeneratedBy.Increment();
             Map(p => p.NameSurname).Column("NameSurname");
-            Map(p => p.Address).Column("Address").CustomSqlType("text");
+            Map(p => p.Address).Column("Address");
             Map(p => p.Email).Column("Email");
             Map(p => p.PhoneNumber).Column("PhoneNumber");
         }

@@ -9,7 +9,7 @@ using Entities.Entities;
 
 namespace Bussiness.Managers
 {
-    internal class StockManager : IStockService
+    public class StockManager : IStockService
     {
         private IStockDal _stockDal;
 
