@@ -27,14 +27,16 @@ namespace API.Controllers
         public ActionResult GetById(int id)
         {
             var result = _categoryService.GetById(id);
-            if (result == null)
+            if (result != null)
             {
                 return Ok(result);
             }
             else
             {
-                return new NoContentResult();
+                return NoContent();
             }
+
+
         }
         [HttpPost("api/category/add")]
         public ActionResult Add(Category entity)

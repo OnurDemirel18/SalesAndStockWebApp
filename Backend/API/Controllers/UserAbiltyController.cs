@@ -26,12 +26,13 @@ namespace API.Controllers
         public ActionResult GetById(int id) {
             var result = _userAbilityService.GetById(id);
 
-            if (result == null) {
-                return NoContent();
+            if (result != null)
+            {
+                return Ok(result);
             }
             else
             {
-                return Ok(result);
+                return NoContent();
             }
         }
         [HttpPost("api/userability/add")]

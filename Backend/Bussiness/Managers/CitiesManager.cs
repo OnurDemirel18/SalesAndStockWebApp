@@ -28,6 +28,11 @@ namespace Bussiness.Managers
             _citiesDal.Delete(entity);
         }
 
+        public Cities GetById(int id)
+        {
+            return _citiesDal.Get(p => p.Id == id);
+        }
+
         public void MultipleDelete(List<Cities> cities)
         {
             _citiesDal.MultipleDelete(cities);

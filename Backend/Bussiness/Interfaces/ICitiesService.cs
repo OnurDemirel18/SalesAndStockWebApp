@@ -14,5 +14,7 @@ namespace Bussiness.Interfaces
         Cities Add(Cities entity);
         Cities Update(Cities entity);
         void Delete(Cities entity);
+
+        Cities GetById(int id);
     }
 }
