@@ -1,7 +1,19 @@
 ﻿@page "/"
-
+@using Configurations
+@inject IDomainService DomainService
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Host : @host</h1>
 
 Welcome to your new app.
+@code{
+
+	string host;
+
+	protected override void OnInitialized()
+	{
+		
+			host = DomainService.Domain();
+		
+	}
+}
