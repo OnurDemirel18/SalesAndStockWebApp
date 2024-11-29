@@ -50,7 +50,10 @@ builder.Services.AddScoped<IAbilityService,AbilityManager>();
 #region Configurations
 
 builder.Services.AddScoped<NHibernateHelper, PostgresHelper>();
-
+builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<TooltipService>();
+builder.Services.AddScoped<ContextMenuService>();
 
 
 #endregion
