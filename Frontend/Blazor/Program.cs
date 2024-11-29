@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using Blazor;
 using Blazored.Toast;
+using Business.Interfaces;
+using Business.Managers;
 using Configurations;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -13,9 +15,13 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddRadzenComponents();
 builder.Services.AddBlazoredToast();
 #endregion
-#region
+#region Configurations
 builder.Services.AddScoped<IDomainService,DomainManager>();
 #endregion
+#region Business
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+#endregion
+
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 await builder.Build().RunAsync();

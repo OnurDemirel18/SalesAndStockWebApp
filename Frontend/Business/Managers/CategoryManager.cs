@@ -1,44 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Interfaces;
-
+using Configurations;
 using Entities.Entities;
 
 namespace Business.Managers
 {
     public class CategoryManager : ICategoryService
     {
-        public Task<Category> Add(Category entity)
+        private IDomainService _domainService;
+        private HttpClient _httpClient;
+
+        public CategoryManager(IDomainService domainService, HttpClient httpClient)
         {
-            throw new NotImplementedException();
+            _domainService = domainService;
+            _httpClient = httpClient;
+        }
+
+        public async Task<Category> Add(Category entity)
+        {
+            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain()+"/api/cotegory/add", entity);
+            return await result.Content.ReadFromJsonAsync<Category>();
         }
 
         public void Delete(Category entity)
         {
-            throw new NotImplementedException();
+            _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "/api/cotegory/delete", entity);
         }
 
-        public Task<List<Category>> GetAll()
+        public async Task<List<Category>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.GetFromJsonAsync<List<Category>>(_domainService.Domain()+"api/category/getall");
+            return result;
         }
 
-        public Task<Category> GetById(int id)
+        public async Task<Category> GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.GetFromJsonAsync<Category>(_domainService.Domain() + "api/category/getbyid/"+ id);
+            return result;
         }
 
-        public Task<List<Category>> Paging(int skip, int take)
+        public async Task<List<Category>> Paging(int skip, int take)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.GetFromJsonAsync<List<Category>>(_domainService.Domain() + "api/category/paging/"+ skip+"/" + take);
+            return result;
         }
 
-        public Task<Category> Update(Category entity)
+        public async Task<Category> Update(Category entity)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "/api/cotegory/update", entity);
+            return await result.Content.ReadFromJsonAsync<Category>();
         }
     }
 }
