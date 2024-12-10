@@ -50,10 +50,7 @@ builder.Services.AddScoped<IAbilityService,AbilityManager>();
 #region Configurations
 
 builder.Services.AddScoped<NHibernateHelper, PostgresHelper>();
-builder.Services.AddScoped<DialogService>();
-builder.Services.AddScoped<NotificationService>();
-builder.Services.AddScoped<TooltipService>();
-builder.Services.AddScoped<ContextMenuService>();
+
 
 
 #endregion
@@ -71,7 +68,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseCors(p => p.WithOrigins("https://localhost:7002").AllowAnyMethod().AllowCredentials().AllowAnyHeader());
 app.MapControllers();
 
 app.Run();

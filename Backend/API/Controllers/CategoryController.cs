@@ -38,6 +38,15 @@ namespace API.Controllers
 
 
         }
+        [HttpGet("api/category/getall")]
+        public List<Category> GetAll(int id)
+        {
+            var result = _categoryService.GetAll();
+            return result;
+            
+
+
+        }
         [HttpPost("api/category/add")]
         public ActionResult Add(Category entity)
         {

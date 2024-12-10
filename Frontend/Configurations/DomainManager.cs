@@ -9,16 +9,16 @@ namespace Configurations
 {
     public class DomainManager : IDomainService
     {
-        private IConfiguration Configuration;
+        private IConfiguration _configuration;
 
         public DomainManager(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
         public string Domain()
         {
-            string host = Configuration.GetSection("Host").Value;
+            string host = _configuration.GetSection("Host").Value;
             return host;
         }
     }

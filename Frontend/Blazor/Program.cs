@@ -13,7 +13,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 #region Components
 builder.Services.AddRadzenComponents();
-builder.Services.AddBlazoredToast();
+
 #endregion
 #region Configurations
 builder.Services.AddScoped<IDomainService,DomainManager>();

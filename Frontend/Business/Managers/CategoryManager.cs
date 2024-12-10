@@ -9,6 +9,7 @@ using Configurations;
 using Entities.Entities;
 
 namespace Business.Managers
+
 {
     public class CategoryManager : ICategoryService
     {
@@ -23,7 +24,8 @@ namespace Business.Managers
 
         public async Task<Category> Add(Category entity)
         {
-            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain()+"/api/cotegory/add", entity);
+            var domain = _domainService.Domain();
+            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "/api/category/add", entity);
             return await result.Content.ReadFromJsonAsync<Category>();
         }
 
@@ -34,7 +36,8 @@ namespace Business.Managers
 
         public async Task<List<Category>> GetAll()
         {
-            var result = await _httpClient.GetFromJsonAsync<List<Category>>(_domainService.Domain()+"api/category/getall");
+            var domain = _domainService.Domain();
+            var result = await _httpClient.GetFromJsonAsync<List<Category>>(_domainService.Domain()+"/api/category/getall");
             return result;
         }
 

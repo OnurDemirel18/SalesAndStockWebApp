@@ -1,0 +1,17 @@
+﻿@page "/counter"
+@inject NotificationService NotificationService
+@rendermode InteractiveServer
+
+
+
+
+
+<RadzenButton Click=@(args => OnClick("Secondary button")) Text="Secondary" ButtonStyle="ButtonStyle.Secondary" />
+@code {
+    private void OnClick(string text = "")
+    {
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Button Clicked", Detail = text });
+    }
+}
+
+<button @onclick="args => OnClick()">Bas bana</button>

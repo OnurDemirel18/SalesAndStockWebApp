@@ -23,6 +23,7 @@ namespace Base.DB.Manager
             using (var session = _nHibernateHelper.OpenSession())
             { 
                 session.Save(entity);
+                session.Flush();
                 return entity;
             }
         }
