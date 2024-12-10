@@ -13,6 +13,7 @@ Data="@categories" TItem="Category" RowUpdate="@OnUpdateRow" RowCreate="@OnCreat
         <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle" Text="Yeni Kategori Ekle" Click="@InsertRow" Disabled="@(editMode == DataGridEditMode.Single)" />
     </HeaderTemplate>
     <Columns>
+
         <RadzenDataGridColumn Property="Id" Title="Category ID" Width="120px" Frozen="true" />
         <RadzenDataGridColumn Property="Name" Title="Name">
             <EditTemplate Context="context">
