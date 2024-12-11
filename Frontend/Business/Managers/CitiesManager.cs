@@ -1,29 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Interfaces;
-
+using Configurations;
 using Entities.Entities;
 
 namespace Business.Managers
 {
     public class CitiesManager : ICitiesService
     {
-        public Task<Cities> Add(Cities entity)
+        private IDomainService _domainService;
+        private HttpClient _httpClient;
+
+        public CitiesManager(IDomainService domainService, HttpClient httpClient)
         {
-            throw new NotImplementedException();
+            _domainService = domainService;
+            _httpClient = httpClient;
+        }
+
+        public async Task<Cities> Add(Cities entity)
+        {
+            var result = await _httpClient.PostAsJsonAsync<Cities>(_domainService.Domain() + "api/cities/add", entity);
+            return await result.Content.ReadFromJsonAsync<Cities>();
+
         }
 
         public void Delete(Cities entity)
         {
-            throw new NotImplementedException();
+            _httpClient.PostAsJsonAsync<Cities>(_domainService.Domain() + "api/cities/delete", entity);
         }
 
-        public Task<Cities> GetById(int id)
+        public async Task<Cities> GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.GetFromJsonAsync<Cities>(_domainService.Domain() +"api/cities/getbyid/"+ id);
+            return result;
         }
 
         public void MultipleDelete(List<Cities> cities)
@@ -31,14 +44,16 @@ namespace Business.Managers
             throw new NotImplementedException();
         }
 
-        public Task<List<Cities>> ParentById(int parentId, int skip, int take)
+        public async Task<List<Cities>> ParentById(int parentId, int skip, int take)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.GetFromJsonAsync<List<Cities>>(_domainService.Domain() + "api/cities/parentbyid/" + parentId + "/" + skip + "/" + take);
+            return result;
         }
 
-        public Task<Cities> Update(Cities entity)
+        public async Task<Cities> Update(Cities entity)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.PostAsJsonAsync<Cities>(_domainService.Domain() + "api/cities/update", entity);
+            return await result.Content.ReadFromJsonAsync<Cities>();
         }
     }
 }
