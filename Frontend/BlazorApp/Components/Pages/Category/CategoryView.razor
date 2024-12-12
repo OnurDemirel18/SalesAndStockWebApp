@@ -4,14 +4,15 @@
 <RadzenCard>
 	@if (categories ==null)
 	{
-		<RadzenProgressBar ProgressBarStyle="ProgressBarStyle.Primary" Mode="ProgressBarMode.Determinate"/>
+		<RadzenProgressBar Value="100" ProgressBarStyle="ProgressBarStyle.Primary" Mode="ProgressBarMode.Indeterminate"/>
 	}
 	else
 	{
-		<RadzenButton Icon="add" Click="()=>InsertRow()" ButtonStyle="ButtonStyle.Primary" Style="margin-bottom:5px">Bana Bas</RadzenButton>
+
+		<RadzenButton Icon="add" Click="()=>InsertRow()" ButtonStyle="ButtonStyle.Primary" Style="margin-bottom:5px">Yeni Kategori Ekle</RadzenButton>
 
 		<RadzenDataGrid @ref="grid" Data="categories" PageSize="PageSize" TItem="Category" AllowFiltering="true" 
-		AllowPaging="true" EditMode="DataGridEditMode.Single" RowCreate="OnCreateRow" RowUpdate="OnUpdateRow">
+		AllowPaging="true" EditMode="DataGridEditMode.Single" RowCreate="OnCreateRow" RowUpdate="OnUpdateRow" Density="Density.Compact">
 			<Columns>
 				<RadzenDataGridColumn TItem="Category" Title="Id" Property="Id" Sortable="true" Width="100px" />
 				<RadzenDataGridColumn TItem="Category" Title="Name" Property="Name" Sortable="true" >
@@ -19,7 +20,7 @@
 						@context.Name
 					</Template>
 					<EditTemplate Context="context">
-						<RadzenTextBox @bind-Value="context.Name" Style="width:100%" Placeholder="Lütfen Kategori Adınızı giriniz." Name="Name"/>
+						<RadzenTextBox @bind-Value="context.Name" Style="width:100%;display:block;" Placeholder="Lütfen Kategori Adınızı giriniz." Name="Name"/>
 						<RadzenRequiredValidator Popup="true" Component="Name" Text="Kategori Adı Girmek Zorunludur."/>
 					</EditTemplate>
 				</RadzenDataGridColumn>
