@@ -1,5 +1,99 @@
-﻿<h3>CategoryView</h3>
+﻿@page "/category"
+@inject ICategoryService CategoryService
+@rendermode InteractiveServer
+<RadzenCard>
+	@if (categories ==null)
+	{
+		<RadzenProgressBar ProgressBarStyle="ProgressBarStyle.Primary" Mode="ProgressBarMode.Determinate"/>
+	}
+	else
+	{
+		<RadzenButton Icon="add" Click="()=>InsertRow()" ButtonStyle="ButtonStyle.Primary" Style="margin-bottom:5px">Bana Bas</RadzenButton>
+
+		<RadzenDataGrid @ref="grid" Data="categories" PageSize="PageSize" TItem="Category" AllowFiltering="true" 
+		AllowPaging="true" EditMode="DataGridEditMode.Single" RowCreate="OnCreateRow" RowUpdate="OnUpdateRow">
+			<Columns>
+				<RadzenDataGridColumn TItem="Category" Title="Id" Property="Id" Sortable="true" Width="100px" />
+				<RadzenDataGridColumn TItem="Category" Title="Name" Property="Name" Sortable="true" >
+					<Template Context="context">
+						@context.Name
+					</Template>
+					<EditTemplate Context="context">
+						<RadzenTextBox @bind-Value="context.Name" Style="width:100%" Placeholder="Lütfen Kategori Adınızı giriniz." Name="Name"/>
+						<RadzenRequiredValidator Popup="true" Component="Name" Text="Kategori Adı Girmek Zorunludur."/>
+					</EditTemplate>
+				</RadzenDataGridColumn>
+				<RadzenDataGridColumn TItem="Category" Width="350px">
+					<Template Context="context">
+
+						<RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Click="()=>EditRow(context)" />
+						<RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Click="() => DeleteRow(context)" />
+
+					</Template>
+					<EditTemplate Context="context">
+
+						<RadzenButton Icon="save" ButtonStyle="ButtonStyle.Success" Click="() => SaveRow(context)" />
+						<RadzenButton Icon="cancel" ButtonStyle="ButtonStyle.Light" Click="() =>CancelEdit(context)"/>
+
+					</EditTemplate>
+				</RadzenDataGridColumn>
+			</Columns>
+		</RadzenDataGrid>
+
+	}
+</RadzenCard>
+
 
 @code {
+	IList<Category> categories;
+	public int PageSize { get; set; } = 10;
+	RadzenDataGrid<Category> grid;
+	Category category;
+	protected override async Task OnInitializedAsync()
+	{
+		categories = await CategoryService.Paging(0, PageSize);
+	}
 
+	void InsertRow()
+	{
+		category = new Category();
+		grid.InsertRow(category);
+	}
+
+	async Task OnCreateRow(Category entity)
+	{
+		var add = await CategoryService.Add(entity);
+		categories = await CategoryService.Paging(0, PageSize);
+		await InvokeAsync(StateHasChanged);
+
+	}
+
+	void SaveRow(Category entity)
+	{
+		grid.UpdateRow(entity);
+	}
+	void EditRow(Category entity)
+	{
+		grid.EditRow(entity);
+	}
+	void CancelEdit(Category entity)
+	{
+		grid.CancelEditRow(entity);
+	}
+	async Task OnUpdateRow(Category entity)
+	{
+		var update = await CategoryService.Update(entity);
+		categories = await CategoryService.Paging(0, PageSize);
+		await InvokeAsync(StateHasChanged);
+
+	}
+	async void DeleteRow(Category entity)
+	{
+		CategoryService.Delete(entity);
+		categories = await CategoryService.Paging(0, PageSize);
+		await InvokeAsync(StateHasChanged);
+		
+
+	}
+	
 }

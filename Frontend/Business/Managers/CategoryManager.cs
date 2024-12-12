@@ -31,7 +31,7 @@ namespace Business.Managers
 
         public void Delete(Category entity)
         {
-            _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "api/cotegory/delete", entity);
+            _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "api/category/delete", entity);
         }
 
         public async Task<List<Category>> GetAll()
@@ -55,7 +55,7 @@ namespace Business.Managers
 
         public async Task<Category> Update(Category entity)
         {
-            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "api/cotegory/update", entity);
+            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "api/category/update", entity);
             return await result.Content.ReadFromJsonAsync<Category>();
         }
     }
