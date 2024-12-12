@@ -25,19 +25,19 @@ namespace Business.Managers
         public async Task<Category> Add(Category entity)
         {
             var domain = _domainService.Domain();
-            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "/api/category/add", entity);
+            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "api/category/add", entity);
             return await result.Content.ReadFromJsonAsync<Category>();
         }
 
         public void Delete(Category entity)
         {
-            _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "/api/cotegory/delete", entity);
+            _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "api/cotegory/delete", entity);
         }
 
         public async Task<List<Category>> GetAll()
         {
             var domain = _domainService.Domain();
-            var result = await _httpClient.GetFromJsonAsync<List<Category>>(_domainService.Domain()+"/api/category/getall");
+            var result = await _httpClient.GetFromJsonAsync<List<Category>>(_domainService.Domain()+"api/category/getall");
             return result;
         }
 
@@ -55,7 +55,7 @@ namespace Business.Managers
 
         public async Task<Category> Update(Category entity)
         {
-            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "/api/cotegory/update", entity);
+            var result = await _httpClient.PostAsJsonAsync<Category>(_domainService.Domain() + "api/cotegory/update", entity);
             return await result.Content.ReadFromJsonAsync<Category>();
         }
     }

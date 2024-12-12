@@ -17,4 +17,15 @@
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Pages\Ability\" />
+    <Folder Include="Components\Pages\Cities\" />
+    <Folder Include="Components\Pages\Customer\" />
+    <Folder Include="Components\Pages\Employee\" />
+    <Folder Include="Components\Pages\UserAbility\" />
+    <Folder Include="Components\Pages\Products\" />
+    <Folder Include="Components\Pages\Sales\" />
+    <Folder Include="Components\Pages\Stock\" />
+  </ItemGroup>
+
 </Project>

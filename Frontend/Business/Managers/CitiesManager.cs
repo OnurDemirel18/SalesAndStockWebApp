@@ -41,7 +41,7 @@ namespace Business.Managers
 
         public void MultipleDelete(List<Cities> cities)
         {
-            throw new NotImplementedException();
+            _httpClient.PostAsJsonAsync<List<Cities>>(_domainService.Domain() + "api/cities/multipledelete", cities);
         }
 
         public async Task<List<Cities>> ParentById(int parentId, int skip, int take)
