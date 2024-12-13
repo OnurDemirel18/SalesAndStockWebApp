@@ -16,5 +16,6 @@ namespace Bussiness.Interfaces
         void Delete(Cities entity);
 
         Cities GetById(int id);
+        List<Cities> Cities(int skip, int take);
     }
 }

@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Components\Pages\Ability\" />
-    <Folder Include="Components\Pages\Cities\" />
     <Folder Include="Components\Pages\Customer\" />
     <Folder Include="Components\Pages\Employee\" />
     <Folder Include="Components\Pages\UserAbility\" />

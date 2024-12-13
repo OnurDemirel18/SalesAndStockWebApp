@@ -1,0 +1,103 @@
+﻿@page "/cities"
+@inject ICitiesService CitiesService
+@rendermode InteractiveServer
+<RadzenCard>
+	@if (cities == null)
+	{
+		<RadzenProgressBar Value="100" ProgressBarStyle="ProgressBarStyle.Primary" Mode="ProgressBarMode.Indeterminate" />
+	}
+	else
+	{
+
+		<RadzenButton Icon="add" Click="()=>InsertRow()" ButtonStyle="ButtonStyle.Primary" Style="margin-bottom:5px">Yeni Şehir Ekle</RadzenButton>
+
+		<RadzenDataGrid @ref="grid" Data="cities" PageSize="PageSize" TItem="Cities" AllowFiltering="true"
+						AllowPaging="true" EditMode="DataGridEditMode.Single" RowCreate="OnCreateRow" RowUpdate="OnUpdateRow" Density="Density.Compact">
+				<Template Context="context">
+					<LowerCities ButtonName = "Yeni İlçe Oluştur" ParentId="context.Id"/>
+				</Template>		
+				<Columns>
+				<RadzenDataGridColumn TItem="Cities" Title="Id" Property="Id" Sortable="true" Width="100px" />
+				<RadzenDataGridColumn TItem="Cities" Title="Name" Property="Name" Sortable="true">
+					<Template Context="context">
+						@context.Name
+					</Template>
+					<EditTemplate Context="context">
+						<RadzenTextBox @bind-Value="context.Name" Style="width:100%;display:block;" Placeholder="Lütfen Şehir Adını Giriniz." Name="Name" />
+						<RadzenRequiredValidator Popup="true" Component="Name" Text="Şehir Adı Girmek Zorunludur." />
+					</EditTemplate>
+				</RadzenDataGridColumn>
+				<RadzenDataGridColumn TItem="Cities" Width="350px">
+					<Template Context="context">
+
+						<RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Click="()=>EditRow(context)" />
+						<RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Click="() => DeleteRow(context)" />
+
+					</Template>
+					<EditTemplate Context="context">
+
+						<RadzenButton Icon="save" ButtonStyle="ButtonStyle.Success" Click="() => SaveRow(context)" />
+						<RadzenButton Icon="cancel" ButtonStyle="ButtonStyle.Light" Click="() =>CancelEdit(context)" />
+
+					</EditTemplate>
+				</RadzenDataGridColumn>
+			</Columns>
+		</RadzenDataGrid>
+
+	}
+</RadzenCard>
+
+
+@code {
+	IList<Cities> cities;
+	public int PageSize { get; set; } = 10;
+	RadzenDataGrid<Cities> grid;
+	Cities city;
+	protected override async Task OnInitializedAsync()
+	{
+		cities = await CitiesService.Cities(0, PageSize);
+	}
+
+	void InsertRow()
+	{
+		city = new Cities();
+		grid.InsertRow(city);
+	}
+
+	async Task OnCreateRow(Cities entity)
+	{
+		var add = await CitiesService.Add(entity);
+		cities = await CitiesService.Cities(0, PageSize);
+		await InvokeAsync(StateHasChanged);
+
+	}
+
+	void SaveRow(Cities entity)
+	{
+		grid.UpdateRow(entity);
+	}
+	void EditRow(Cities entity)
+	{
+		grid.EditRow(entity);
+	}
+	void CancelEdit(Cities entity)
+	{
+		grid.CancelEditRow(entity);
+	}
+	async Task OnUpdateRow(Cities entity)
+	{
+		var update = await CitiesService.Update(entity);
+		cities = await CitiesService.Cities(0, PageSize);
+		await InvokeAsync(StateHasChanged);
+
+	}
+	async void DeleteRow(Cities entity)
+	{
+		CitiesService.Delete(entity);
+		cities = await CitiesService.Cities(0, PageSize);
+		await InvokeAsync(StateHasChanged);
+
+
+	}
+
+}

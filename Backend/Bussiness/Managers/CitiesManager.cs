@@ -23,6 +23,11 @@ namespace Bussiness.Managers
             return _citiesDal.Add(entity);
         }
 
+        public List<Cities> Cities(int skip, int take)
+        {
+            return _citiesDal.Cities(skip, take);
+        }
+
         public void Delete(Cities entity)
         {
             _citiesDal.Delete(entity);

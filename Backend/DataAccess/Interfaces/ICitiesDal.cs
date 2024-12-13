@@ -13,5 +13,7 @@ namespace DataAccess.Interfaces
         List<Cities> ParentById(int parentId, int skip, int take);
 
         void MultipleDelete(List<Cities> cities);
+
+        List<Cities> Cities(int skip, int take);
     }
 }

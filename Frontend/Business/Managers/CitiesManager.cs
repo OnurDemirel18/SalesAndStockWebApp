@@ -28,6 +28,12 @@ namespace Business.Managers
 
         }
 
+        public async Task<List<Cities>> Cities(int skip, int take)
+        {
+            var result = await _httpClient.GetFromJsonAsync<List<Cities>>(_domainService.Domain() + "api/cities/cities/"+ skip + "/" + take);
+            return result;
+        }
+
         public void Delete(Cities entity)
         {
             _httpClient.PostAsJsonAsync<Cities>(_domainService.Domain() + "api/cities/delete", entity);

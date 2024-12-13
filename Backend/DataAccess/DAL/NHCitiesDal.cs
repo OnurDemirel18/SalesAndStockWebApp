@@ -18,6 +18,8 @@ namespace DataAccess.DAL
             _nHibernateHelper = nHibernateHelper;
         }
 
+        
+
         public void MultipleDelete(List<Cities> cities)
         {
             using(var session = _nHibernateHelper.OpenSession()) 
@@ -36,6 +38,16 @@ namespace DataAccess.DAL
             using(var session = _nHibernateHelper.OpenSession())
             {
                 var result = session.Query<Cities>().Where(p => p.ParentId == parentId).OrderBy(p =>p.Name)
+                    .Skip(skip).Take(take).ToList();
+                return result;
+            }
+        }
+
+        public List<Cities> Cities(int skip, int take)
+        {
+            using (var session = _nHibernateHelper.OpenSession())
+            {
+                var result = session.Query<Cities>().Where(p => p.ParentId == 0).OrderBy(p => p.Name)
                     .Skip(skip).Take(take).ToList();
                 return result;
             }

@@ -22,6 +22,13 @@ namespace API.Controllers
 
             return Ok(result);
         }
+        [HttpGet("api/cities/cities/{skip}/{take}")]
+        public IActionResult Cities(int skip, int take)
+        {
+            var result = _citiesService.Cities(skip, take);
+
+            return Ok(result);
+        }
 
         [HttpGet("api/cities/getbyid/{id}")]
         public IActionResult GetById(int id)
