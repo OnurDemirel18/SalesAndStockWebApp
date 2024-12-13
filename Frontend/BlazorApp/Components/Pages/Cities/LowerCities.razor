@@ -12,7 +12,11 @@
 		<RadzenButton Icon="add" Click="()=>InsertRow()" ButtonStyle="ButtonStyle.Success" Style="margin-bottom:5px">@ButtonName</RadzenButton>
 
 		<RadzenDataGrid @ref="grid" Data="cities" PageSize="PageSize" TItem="Cities" AllowFiltering="true"
-		AllowPaging="true" EditMode="DataGridEditMode.Single" RowCreate="OnCreateRow" RowUpdate="OnUpdateRow" Density="Density.Compact">
+		AllowPaging="true" EditMode="DataGridEditMode.Single" RowCreate="OnCreateRow" RowUpdate="OnUpdateRow"
+		Density="Density.Compact">
+			<Template Context="context">
+				<LowerCities ButtonName="Yeni Mahalle Oluştur" ParentId="context.ParentId"/>
+			</Template>
 			<Columns>
 				<RadzenDataGridColumn TItem="Cities" Title="Id" Property="Id" Sortable="true" Width="100px" />
 				<RadzenDataGridColumn TItem="Cities" Title="Name" Property="Name" Sortable="true">
