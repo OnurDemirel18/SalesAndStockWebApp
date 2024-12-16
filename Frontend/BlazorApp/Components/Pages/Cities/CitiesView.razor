@@ -1,6 +1,9 @@
 ﻿@page "/cities"
 @inject ICitiesService CitiesService
 @rendermode InteractiveServer
+@inject IToastService ToastService
+@using Blazored.Toast.Configuration
+
 <RadzenCard>
 	@if (cities == null)
 	{
@@ -12,11 +15,11 @@
 		<RadzenButton Icon="add" Click="()=>InsertRow()" ButtonStyle="ButtonStyle.Primary" Style="margin-bottom:5px">Yeni Şehir Ekle</RadzenButton>
 
 		<RadzenDataGrid @ref="grid" Data="cities" PageSize="PageSize" TItem="Cities" AllowFiltering="true"
-						AllowPaging="true" EditMode="DataGridEditMode.Single" RowCreate="OnCreateRow" RowUpdate="OnUpdateRow" Density="Density.Compact">
-				<Template Context="context">
-					<LowerCities ButtonName = "Yeni İlçe Oluştur" ParentId="context.Id"/>
-				</Template>		
-				<Columns>
+		AllowPaging="true" EditMode="DataGridEditMode.Single" RowCreate="OnCreateRow" RowUpdate="OnUpdateRow" Density="Density.Compact">
+			<Template Context="context">
+				<LowerCities ButtonName = "Yeni İlçe Oluştur" ParentId="context.Id" IsItOpen="true"/>
+			</Template>		
+			<Columns>
 				<RadzenDataGridColumn TItem="Cities" Title="Id" Property="Id" Sortable="true" Width="100px" />
 				<RadzenDataGridColumn TItem="Cities" Title="Name" Property="Name" Sortable="true">
 					<Template Context="context">
@@ -47,7 +50,9 @@
 	}
 </RadzenCard>
 
-
+<BlazoredToasts Position="ToastPosition.BottomLeft"
+				Timeout="10"
+				ShowProgressBar="true" />
 @code {
 	IList<Cities> cities;
 	public int PageSize { get; set; } = 10;
@@ -93,10 +98,16 @@
 	}
 	async void DeleteRow(Cities entity)
 	{
+		var isThereLowerCities = await CitiesService.IsThereLowerCities(entity.Id);
+		if (isThereLowerCities)
+		{
+			ToastService.ShowError("Bu Şehrin Altında İlçeler Mevcuttur.");
+		}
+		else{
 		CitiesService.Delete(entity);
 		cities = await CitiesService.Cities(0, PageSize);
 		await InvokeAsync(StateHasChanged);
-
+		}
 
 	}
 

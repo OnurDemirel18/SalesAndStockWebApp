@@ -52,5 +52,22 @@ namespace DataAccess.DAL
                 return result;
             }
         }
+
+        public bool IsThereLowerCities(int parentId)
+        {
+            using (var session = _nHibernateHelper.OpenSession())
+            {
+                var result = session.Query<Cities>().Where(p => p.ParentId == parentId).Count();
+                if (result > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+        }
     }
 }

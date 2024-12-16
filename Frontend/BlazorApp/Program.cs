@@ -1,4 +1,5 @@
 using BlazorApp.Components;
+using Blazored.Toast;
 using Business.Interfaces;
 using Business.Managers;
 using Configurations;
@@ -41,7 +42,7 @@ builder.Services.AddScoped<IUserAbilityService, UserAbilityManager>();
 
 #endregion
 
-
+builder.Services.AddBlazoredToast();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

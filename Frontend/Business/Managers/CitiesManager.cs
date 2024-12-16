@@ -45,6 +45,12 @@ namespace Business.Managers
             return result;
         }
 
+        public async Task<bool> IsThereLowerCities(int parentId)
+        {
+            var result = await _httpClient.GetFromJsonAsync<bool>(_domainService.Domain() + "api/cities/istherelowercities/" + parentId);
+            return result;
+        }
+
         public void MultipleDelete(List<Cities> cities)
         {
             _httpClient.PostAsJsonAsync<List<Cities>>(_domainService.Domain() + "api/cities/multipledelete", cities);

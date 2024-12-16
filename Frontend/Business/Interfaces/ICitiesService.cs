@@ -15,7 +15,7 @@ namespace Business.Interfaces
         Task<Cities> Add(Cities entity);
         Task<Cities> Update(Cities entity);
         void Delete(Cities entity);
-
+        Task<bool> IsThereLowerCities(int parentId);
         Task<Cities> GetById(int id);
     }
 }

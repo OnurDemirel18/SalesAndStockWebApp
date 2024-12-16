@@ -15,7 +15,12 @@
 		AllowPaging="true" EditMode="DataGridEditMode.Single" RowCreate="OnCreateRow" RowUpdate="OnUpdateRow"
 		Density="Density.Compact">
 			<Template Context="context">
-				<LowerCities ButtonName="Yeni Mahalle Oluştur" ParentId="context.ParentId"/>
+				@if (IsItOpen)
+				{
+					<LowerCities IsItOpen="false" ButtonName="Yeni Mahalle Oluştur" ParentId="context.Id"  />
+					
+				}
+				
 			</Template>
 			<Columns>
 				<RadzenDataGridColumn TItem="Cities" Title="Id" Property="Id" Sortable="true" Width="100px" />
@@ -74,6 +79,10 @@
 	public int ParentId { get; set; }
 	[Parameter]
 	public string ButtonName { get; set; }
+	[Parameter]
+	public bool ButtonStatus { get; set; }
+	[Parameter]
+	public bool IsItOpen { get; set; }
 
 	protected override async Task OnParametersSetAsync()
 	{

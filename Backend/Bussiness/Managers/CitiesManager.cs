@@ -38,6 +38,11 @@ namespace Bussiness.Managers
             return _citiesDal.Get(p => p.Id == id);
         }
 
+        public bool IsThereLowerCities(int parentId)
+        {
+            return _citiesDal.IsThereLowerCities(parentId);
+        }
+
         public void MultipleDelete(List<Cities> cities)
         {
             _citiesDal.MultipleDelete(cities);

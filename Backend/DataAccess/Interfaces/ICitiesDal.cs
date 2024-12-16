@@ -15,5 +15,7 @@ namespace DataAccess.Interfaces
         void MultipleDelete(List<Cities> cities);
 
         List<Cities> Cities(int skip, int take);
+
+        bool IsThereLowerCities(int parentId);
     }
 }

@@ -14,7 +14,7 @@ namespace Bussiness.Interfaces
         Cities Add(Cities entity);
         Cities Update(Cities entity);
         void Delete(Cities entity);
-
+        bool IsThereLowerCities(int parentId);
         Cities GetById(int id);
         List<Cities> Cities(int skip, int take);
     }

@@ -74,7 +74,10 @@ namespace API.Controllers
 
             return Ok(entity);
         }
-
+        [HttpGet("api/cities/istherelowercities/{parentId}")]
+        public bool IsThereLowerCities(int parentId) {
+            return _citiesService.IsThereLowerCities(parentId);
+        }
 
 
     }
