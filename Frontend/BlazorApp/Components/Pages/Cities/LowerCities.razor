@@ -1,6 +1,8 @@
 ﻿
 @inject ICitiesService CitiesService
 @rendermode InteractiveServer
+@using Blazored.Toast.Configuration
+@inject IToastService ToastService
 <RadzenCard>
 	@if (cities == null && upperCities == null)
 	{
@@ -18,9 +20,9 @@
 				@if (IsItOpen)
 				{
 					<LowerCities IsItOpen="false" ButtonName="Yeni Mahalle Oluştur" ParentId="context.Id"  />
-					
+
 				}
-				
+
 			</Template>
 			<Columns>
 				<RadzenDataGridColumn TItem="Cities" Title="Id" Property="Id" Sortable="true" Width="100px" />
@@ -66,6 +68,15 @@
 		</RadzenDataGrid>
 
 	}
+	<BlazoredToasts @rendermode="InteractiveServer"
+	Position="ToastPosition.BottomRight"
+	Timeout="10"
+	RemoveToastsOnNavigation="true"
+	MaxToastCount="5"
+	IconType="IconType.FontAwesome"
+	SuccessClass="success-toast-override"
+	SuccessIcon="fa fa-thumbs-up"
+	ErrorIcon="fa fa-exclamation" />
 </RadzenCard>
 
 
@@ -132,10 +143,17 @@
 	}
 	async void DeleteRow(Cities entity)
 	{
-		CitiesService.Delete(entity);
-		cities = await CitiesService.ParentById(ParentId, 0, PageSize);
-		await InvokeAsync(StateHasChanged);
-
+		var isThereLowerCities = await CitiesService.IsThereLowerCities(entity.Id);
+		if (isThereLowerCities)
+		{
+			ToastService.ShowError("Malalleler var ");
+		}
+		else
+		{
+			CitiesService.Delete(entity);
+			cities = await CitiesService.ParentById(ParentId, 0, PageSize);
+			await InvokeAsync(StateHasChanged);
+		}
 
 	}
 

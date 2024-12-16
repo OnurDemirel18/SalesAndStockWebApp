@@ -70,9 +70,16 @@ namespace API.Controllers
         [HttpPost("api/cities/delete")]
         public ActionResult Delete(Cities entity)
         {
-            _citiesService.Delete(entity);
-
-            return Ok(entity);
+            var isThereLowerCities = _citiesService.IsThereLowerCities(entity.Id);
+            if (isThereLowerCities)
+            {
+                return BadRequest("This city has lower cities. Please delete them first.");
+            }
+            else
+            {
+                _citiesService.Delete(entity);
+                return Ok(entity);
+            }
         }
         [HttpGet("api/cities/istherelowercities/{parentId}")]
         public bool IsThereLowerCities(int parentId) {
